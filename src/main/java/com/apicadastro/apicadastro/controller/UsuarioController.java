@@ -2,6 +2,7 @@ package com.apicadastro.apicadastro.controller;
 
 import com.apicadastro.apicadastro.entity.UsuarioEntity;
 import com.apicadastro.apicadastro.repository.UsuarioRepository;
+import com.apicadastro.apicadastro.services.UsuarioServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,25 +17,26 @@ import java.util.Optional;
 public class UsuarioController {
     @Autowired
     private UsuarioRepository usuarioRepository;
+    private UsuarioServices usuarioServices;
+    public UsuarioController (UsuarioServices usuarioServices){
+        this.usuarioServices = usuarioServices;
+    }
 
     @GetMapping
     public ResponseEntity<List<UsuarioEntity>> listarTodos(){
-        List<UsuarioEntity> lista = usuarioRepository.findAll();
-        return ResponseEntity.status(200).body(lista);
+        return ResponseEntity.status(200).body(usuarioServices.listarUsuario());
     }
     @PostMapping
     public ResponseEntity<UsuarioEntity> criarUsuario(@RequestBody UsuarioEntity usuarioentity){
-        UsuarioEntity usuarioEntity = usuarioRepository.save(usuarioentity);
-        return ResponseEntity.status(201).body(usuarioEntity);
+        return ResponseEntity.status(201).body(usuarioServices.criarUsuario(usuarioentity));
     }
     @PutMapping
     public ResponseEntity<UsuarioEntity> editarUsuario(@RequestBody UsuarioEntity usuarioentity){
-        UsuarioEntity usuarioEntity = usuarioRepository.save(usuarioentity);
-        return ResponseEntity.status(201).body(usuarioEntity);
+        return ResponseEntity.status(200).body(usuarioServices.editarUsuario(usuarioentity));
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deletarUsuarioPorid(@PathVariable Integer id){
-        usuarioRepository.deleteById(id);
+        usuarioServices.excluirUsuario(id);
         return ResponseEntity.status(204).build();
     }
 
