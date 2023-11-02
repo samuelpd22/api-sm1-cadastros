@@ -30,6 +30,15 @@ public class UsuarioController {
     public ResponseEntity<UsuarioEntity> criarUsuario(@RequestBody UsuarioEntity usuarioentity){
         return ResponseEntity.status(201).body(usuarioServices.criarUsuario(usuarioentity));
     }
+    @PostMapping("/login")
+    public ResponseEntity<UsuarioEntity> validarSenha(@RequestBody UsuarioEntity usuarioEntity){
+        Boolean valid = usuarioServices.validarSenha(usuarioEntity);
+        if (!valid){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        return ResponseEntity.status(200).build();
+    }
+
     @PutMapping
     public ResponseEntity<UsuarioEntity> editarUsuario(@RequestBody UsuarioEntity usuarioentity){
         return ResponseEntity.status(200).body(usuarioServices.editarUsuario(usuarioentity));
