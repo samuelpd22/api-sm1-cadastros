@@ -1,7 +1,11 @@
 package com.apicadastro.apicadastro.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
+@Data
 @Entity
 @Table(name ="API-Cadastro")
 public class UsuarioEntity {
@@ -18,43 +22,5 @@ public class UsuarioEntity {
     @Column(name = "tel" ,length = 15, nullable = true)
     private String tel;
 
-    public String getTel() {
-        return tel;
-    }
 
-    public void setTel(String tel) {
-        this.tel = tel;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
 }
