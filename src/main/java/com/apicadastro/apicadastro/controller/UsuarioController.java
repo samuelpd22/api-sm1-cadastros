@@ -3,6 +3,7 @@ package com.apicadastro.apicadastro.controller;
 import com.apicadastro.apicadastro.entity.UsuarioEntity;
 import com.apicadastro.apicadastro.repository.UsuarioRepository;
 import com.apicadastro.apicadastro.services.UsuarioServices;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,11 +28,11 @@ public class UsuarioController {
         return ResponseEntity.status(200).body(usuarioServices.listarUsuario());
     }
     @PostMapping
-    public ResponseEntity<UsuarioEntity> criarUsuario(@RequestBody UsuarioEntity usuarioentity){
+    public ResponseEntity<UsuarioEntity> criarUsuario(@Valid @RequestBody UsuarioEntity usuarioentity){
         return ResponseEntity.status(201).body(usuarioServices.criarUsuario(usuarioentity));
     }
     @PostMapping("/login")
-    public ResponseEntity<UsuarioEntity> validarSenha(@RequestBody UsuarioEntity usuarioEntity){
+    public ResponseEntity<UsuarioEntity> validarSenha(@Valid @RequestBody UsuarioEntity usuarioEntity){
         Boolean valid = usuarioServices.validarSenha(usuarioEntity);
         if (!valid){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
